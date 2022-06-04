@@ -23,6 +23,10 @@ use PHPUnit\Framework\Constraint\IsInstanceOf;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 
+use function array_change_key_case;
+
+use const CASE_LOWER;
+
 final class ClientBuilderTest extends TestCase
 {
     /**
@@ -253,9 +257,9 @@ final class ClientBuilderTest extends TestCase
     {
         $uri           = 'https://test.uri';
         $method        = 'Test-Method';
-        $headers       = [];
+        $headers       = ['cache-control' => 'no-cache'];
         $configHeaders = ['a' => 'b'];
-        $options       = ['cache-control' => 'no-cache'];
+        $options       = ['timeout' => 10];
 
         $clientConfig = $this->getMockBuilder(ClientConfigInterface::class)
             ->disableOriginalConstructor()
@@ -330,9 +334,9 @@ final class ClientBuilderTest extends TestCase
     {
         $uri           = 'https://test.uri';
         $method        = 'Test-Method';
-        $headers       = [];
+        $headers       = ['cache-control' => 'no-cache'];
         $configHeaders = ['a' => 'b'];
-        $options       = ['cache-control' => 'no-cache'];
+        $options       = ['timeout' => 10];
         $exception     = new \Laminas\Http\Client\Exception\InvalidArgumentException('wrong option');
 
         $clientConfig = $this->getMockBuilder(ClientConfigInterface::class)
@@ -408,5 +412,83 @@ final class ClientBuilderTest extends TestCase
 
             self::assertSame($exception, $e->getPrevious());
         }
+    }
+
+    /**
+     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws ExpectationFailedException
+     * @throws Exception
+     */
+    public function testBuild6(): void
+    {
+        $uri           = 'https://test.uri';
+        $method        = 'Test-Method';
+        $headers       = ['Cache-Control' => 'no-cache'];
+        $configHeaders = ['a' => 'b'];
+        $options       = ['timeout' => 10];
+
+        $clientConfig = $this->getMockBuilder(ClientConfigInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $clientConfig->expects(self::once())
+            ->method('getHeaders')
+            ->willReturn($configHeaders);
+        $clientConfig->expects(self::once())
+            ->method('getOptions')
+            ->willReturn($options);
+
+        $config = $this->getMockBuilder(ConfigInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $config->expects(self::once())
+            ->method('getClientConfig')
+            ->willReturn($clientConfig);
+
+        $headersObj = $this->getMockBuilder(Headers::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $headersObj->expects(self::once())
+            ->method('addHeaders')
+            ->with($configHeaders + array_change_key_case($headers, CASE_LOWER));
+        $headersObj->expects(self::never())
+            ->method('addHeader');
+        $headersObj->expects(self::exactly(3))
+            ->method('has')
+            ->withConsecutive(['cache-control'], ['pragma'], ['connection'])
+            ->willReturnOnConsecutiveCalls(true, true, true);
+
+        $request = $this->getMockBuilder(Request::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $request->expects(self::once())
+            ->method('setHeaders')
+            ->with($headersObj);
+
+        $client = $this->getMockBuilder(HttpClient::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $client->expects(self::once())
+            ->method('resetParameters')
+            ->with(false);
+        $client->expects(self::once())
+            ->method('clearCookies');
+        $client->expects(self::once())
+            ->method('clearAuth');
+        $client->expects(self::once())
+            ->method('setUri')
+            ->with($uri);
+        $client->expects(self::once())
+            ->method('setMethod')
+            ->with($method);
+        $client->expects(self::once())
+            ->method('getRequest')
+            ->willReturn($request);
+        $client->expects(self::once())
+            ->method('setOptions')
+            ->with($options);
+
+        $object = new ClientBuilder($config, $client, $headersObj);
+
+        self::assertInstanceOf(HttpClient::class, $object->build($uri, $method, $headers));
     }
 }
