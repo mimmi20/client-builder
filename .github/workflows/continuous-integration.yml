@@ -402,7 +402,7 @@ jobs:
           extensions: "${{ env.PHP_EXTENSIONS }}"
           ini-values: "${{ env.PHP_INI_VALUES }}"
           coverage: "${{ matrix.coverage-drivers }}"
-          tools: "${{ env.TOOLS }}, infection"
+          tools: "${{ env.TOOLS }}, infection:0.26.6"
 
       - name: "Update dependencies with composer"
         uses: "ramsey/composer-install@v1"
