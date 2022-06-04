@@ -33,8 +33,8 @@
         <ini name="intl.use_exceptions" value="1"/>
     </php>
 
-    <testsuite name="Template Test Suite">
-        <directory>tests/</directory>
+    <testsuite name="client-builder Test Suite">
+        <directory>test/</directory>
     </testsuite>
 
     <coverage includeUncoveredFiles="true" processUncoveredFiles="true">
