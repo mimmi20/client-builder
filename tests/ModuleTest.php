@@ -1,8 +1,8 @@
 <?php
 /**
- * This file is part of the mimmi20/laminas-router-hostname package.
+ * This file is part of the mimmi20/client-builder package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2022, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,9 +12,6 @@ declare(strict_types = 1);
 
 namespace Mimmi20\ClientBuilder;
 
-use Mimmi20\ClientBuilder\ClientBuilder;
-use Mimmi20\ClientBuilder\ClientBuilderInterface;
-use Mimmi20\ClientBuilder\Module;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\RecursionContext\InvalidArgumentException;

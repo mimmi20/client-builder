@@ -24,9 +24,9 @@
     "laminas/laminas-dependency-plugin": "^2.2.0",
     "laminas/laminas-modulemanager": "^2.11.0",
     "laminas/laminas-servicemanager": "^3.11.2",
-    "mimmi20/coding-standard": "^2.8.0",
+    "mimmi20/coding-standard": "^2.8.1",
     "phpstan/extension-installer": "^1.1.0",
-    "phpstan/phpstan": "^1.7.3",
+    "phpstan/phpstan": "^1.7.10",
     "phpstan/phpstan-deprecation-rules": "^1.0.0",
     "phpstan/phpstan-phpunit": "^1.1.1",
     "phpunit/phpunit": "^9.5.20"

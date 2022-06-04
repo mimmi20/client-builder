@@ -1,8 +1,11 @@
 <?php
 /**
- * This file is part of the geldlib/interfaces package.
+ * This file is part of the mimmi20/client-builder package.
  *
- * Copyright (c) 2018-2022, JDC Geld.de GmbH
+ * Copyright (c) 2022, Thomas Mueller <mimmi20@live.de>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 declare(strict_types = 1);
@@ -17,10 +20,10 @@ interface ClientBuilderInterface
     /**
      * builds the client
      *
-     * @param HeaderInterface[] $headers
+     * @param mixed[] $headers
      * @phpstan-param array<int|string, HeaderInterface|string|array<int|string, string>> $headers
      *
-     * @throws void
+     * @throws Exception
      */
     public function build(string $uri, string $method, array $headers = []): HttpClient;
 }

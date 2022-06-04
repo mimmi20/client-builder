@@ -1,8 +1,11 @@
 <?php
 /**
- * This file is part of the geldlib/interfaces package.
+ * This file is part of the mimmi20/client-builder package.
  *
- * Copyright (c) 2018-2022, JDC Geld.de GmbH
+ * Copyright (c) 2022, Thomas Mueller <mimmi20@live.de>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 declare(strict_types = 1);
@@ -14,6 +17,8 @@ use Laminas\ServiceManager\Factory\FactoryInterface;
 use LogicException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
+
+use function assert;
 
 final class ClientBuilderFactory implements FactoryInterface
 {
@@ -31,9 +36,9 @@ final class ClientBuilderFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): ClientBuilder
     {
-        return new ClientBuilder(
-            $container->get(ConfigInterface::class),
-            new HttpClient()
-        );
+        $config = $container->get(ConfigInterface::class);
+        assert($config instanceof ConfigInterface);
+
+        return new ClientBuilder($config, new HttpClient());
     }
 }

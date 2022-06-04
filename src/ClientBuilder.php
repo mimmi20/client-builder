@@ -1,34 +1,28 @@
 <?php
 /**
- * This file is part of the geldlib/interfaces package.
+ * This file is part of the mimmi20/client-builder package.
  *
- * Copyright (c) 2018-2022, JDC Geld.de GmbH
+ * Copyright (c) 2022, Thomas Mueller <mimmi20@live.de>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 declare(strict_types = 1);
 
 namespace Mimmi20\ClientBuilder;
 
-use GeldLib\Interfaces\Cleverreach\Entity\Form;
-use GeldLib\Interfaces\Cleverreach\Entity\Group;
-use GeldLib\Interfaces\Generic\ConfigMissingException;
-use GeldLib\Interfaces\Generic\RequestFailedException;
-use GeldLib\Interfaces\Generic\ServiceTrait;
 use Laminas\Http\Client as HttpClient;
-use Laminas\Http\Client\Exception\InvalidArgumentException;
-use Laminas\Http\Header\Authorization;
 use Laminas\Http\Header\CacheControl;
 use Laminas\Http\Header\Connection;
+use Laminas\Http\Header\Exception\InvalidArgumentException;
 use Laminas\Http\Header\HeaderInterface;
 use Laminas\Http\Header\Pragma;
-use Laminas\Http\Header\Referer;
-use Laminas\Http\Header\UserAgent;
 use Laminas\Http\Headers;
 
-use function is_array;
-use function mb_strpos;
-use function sprintf;
-use function var_export;
+use function array_change_key_case;
+
+use const CASE_LOWER;
 
 final class ClientBuilder implements ClientBuilderInterface
 {
@@ -47,10 +41,10 @@ final class ClientBuilder implements ClientBuilderInterface
     /**
      * builds the client
      *
-     * @param HeaderInterface[] $headers
+     * @param mixed[] $headers
      * @phpstan-param array<int|string, HeaderInterface|string|array<int|string, string>> $headers
      *
-     * @throws void
+     * @throws Exception
      */
     public function build(string $uri, string $method, array $headers = []): HttpClient
     {
@@ -85,7 +79,7 @@ final class ClientBuilder implements ClientBuilderInterface
 
         try {
             $requestHeaders->addHeaders($headers);
-        } catch (\Laminas\Http\Header\Exception\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             throw new Exception(
                 $e->getMessage(),
                 0,
