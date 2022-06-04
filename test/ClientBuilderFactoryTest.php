@@ -23,9 +23,7 @@ final class ClientBuilderFactoryTest extends TestCase
      */
     public function testInvoke(): void
     {
-        $config = $this->getMockBuilder(ConfigInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $config = $this->createMock(ConfigInterface::class);
 
         $container = $this->getMockBuilder(ContainerInterface::class)
             ->disableOriginalConstructor()

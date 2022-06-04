@@ -28,14 +28,16 @@ final class ClientBuilder implements ClientBuilderInterface
 {
     private ConfigInterface $config;
     private HttpClient $client;
+    private Headers $headers;
 
     /**
      * @throws void
      */
-    public function __construct(ConfigInterface $config, HttpClient $client)
+    public function __construct(ConfigInterface $config, HttpClient $client, Headers $headers)
     {
-        $this->config = $config;
-        $this->client = $client;
+        $this->config  = $config;
+        $this->client  = $client;
+        $this->headers = $headers;
     }
 
     /**
@@ -69,13 +71,9 @@ final class ClientBuilder implements ClientBuilderInterface
             );
         }
 
-        $configHeaders = $config->getHeaders();
+        $headers = $config->getHeaders() + $headers;
 
-        if (null !== $configHeaders) {
-            $headers = $configHeaders + $headers;
-        }
-
-        $requestHeaders = new Headers();
+        $requestHeaders = clone $this->headers;
 
         try {
             $requestHeaders->addHeaders($headers);

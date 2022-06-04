@@ -17,6 +17,6 @@
 
     <!-- Paths to check -->
     <file>src</file>
-    <file>tests</file>
+    <file>test</file>
     <file>.php-cs-fixer.php</file>
 </ruleset>

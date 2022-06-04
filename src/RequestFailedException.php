@@ -25,7 +25,7 @@ final class RequestFailedException extends RuntimeException
 
     private ?Response $response = null;
 
-    private HttpClient $client;
+    private ?HttpClient $client = null;
 
     /**
      * @throws void
@@ -62,7 +62,7 @@ final class RequestFailedException extends RuntimeException
     /**
      * @throws void
      */
-    public function getClient(): HttpClient
+    public function getClient(): ?HttpClient
     {
         return $this->client;
     }

@@ -13,6 +13,7 @@ declare(strict_types = 1);
 namespace Mimmi20\ClientBuilder;
 
 use Laminas\Http\Client as HttpClient;
+use Laminas\Http\Headers;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use LogicException;
 use Psr\Container\ContainerExceptionInterface;
@@ -39,6 +40,6 @@ final class ClientBuilderFactory implements FactoryInterface
         $config = $container->get(ConfigInterface::class);
         assert($config instanceof ConfigInterface);
 
-        return new ClientBuilder($config, new HttpClient());
+        return new ClientBuilder($config, new HttpClient(), new Headers());
     }
 }
