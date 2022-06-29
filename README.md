@@ -10,19 +10,17 @@
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/mimmi20/client-builder.svg)](http://isitmaintained.com/project/mimmi20/client-builder "Average time to resolve an issue")
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/mimmi20/client-builder.svg)](http://isitmaintained.com/project/mimmi20/client-builder "Percentage of issues still open")
 
-## Installation
+## Requirements
 
-:bulb: This is a great place for showing how to install the package, see below:
+This library requires PHP 8.1+.
+
+## Installation
 
 Run
 
+```shell
+composer require mimmi20/client-builder
 ```
-$ composer require mimmi20/client-builder
-```
-
-## Usage
-
-:bulb: This is a great place for showing a few usage examples!
 
 ## License
 
