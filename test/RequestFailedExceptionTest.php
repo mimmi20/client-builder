@@ -22,9 +22,7 @@ final class RequestFailedExceptionTest extends TestCase
 {
     private RequestFailedException $object;
 
-    /**
-     * @throws void
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->object = new RequestFailedException();
