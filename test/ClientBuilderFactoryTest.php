@@ -18,9 +18,7 @@ use Psr\Container\ContainerInterface;
 
 final class ClientBuilderFactoryTest extends TestCase
 {
-    /**
-     * @throws Exception
-     */
+    /** @throws Exception */
     public function testInvoke(): void
     {
         $config = $this->createMock(ConfigInterface::class);

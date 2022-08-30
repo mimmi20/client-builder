@@ -26,18 +26,9 @@ use const CASE_LOWER;
 
 final class ClientBuilder implements ClientBuilderInterface
 {
-    private ConfigInterface $config;
-    private HttpClient $client;
-    private Headers $headers;
-
-    /**
-     * @throws void
-     */
-    public function __construct(ConfigInterface $config, HttpClient $client, Headers $headers)
+    /** @throws void */
+    public function __construct(private ConfigInterface $config, private HttpClient $client, private Headers $headers)
     {
-        $this->config  = $config;
-        $this->client  = $client;
-        $this->headers = $headers;
     }
 
     /**
@@ -67,7 +58,7 @@ final class ClientBuilder implements ClientBuilderInterface
             throw new Exception(
                 $e->getMessage(),
                 0,
-                $e
+                $e,
             );
         }
 
@@ -81,7 +72,7 @@ final class ClientBuilder implements ClientBuilderInterface
             throw new Exception(
                 $e->getMessage(),
                 0,
-                $e
+                $e,
             );
         }
 
@@ -113,7 +104,7 @@ final class ClientBuilder implements ClientBuilderInterface
             throw new Exception(
                 $e->getMessage(),
                 0,
-                $e
+                $e,
             );
         }
 

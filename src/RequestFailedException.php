@@ -23,53 +23,41 @@ final class RequestFailedException extends RuntimeException
 {
     private int $statusCode = 500;
 
-    private ?Response $response = null;
+    private Response | null $response = null;
 
-    private ?HttpClient $client = null;
+    private HttpClient | null $client = null;
 
-    /**
-     * @throws void
-     */
+    /** @throws void */
     public function getStatusCode(): int
     {
         return $this->statusCode;
     }
 
-    /**
-     * @throws void
-     */
+    /** @throws void */
     public function setStatusCode(int $statusCode): void
     {
         $this->statusCode = $statusCode;
     }
 
-    /**
-     * @throws void
-     */
-    public function getResponse(): ?Response
+    /** @throws void */
+    public function getResponse(): Response | null
     {
         return $this->response;
     }
 
-    /**
-     * @throws void
-     */
+    /** @throws void */
     public function setResponse(Response $response): void
     {
         $this->response = $response;
     }
 
-    /**
-     * @throws void
-     */
-    public function getClient(): ?HttpClient
+    /** @throws void */
+    public function getClient(): HttpClient | null
     {
         return $this->client;
     }
 
-    /**
-     * @throws void
-     */
+    /** @throws void */
     public function setClient(HttpClient $client): void
     {
         $this->client = $client;

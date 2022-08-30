@@ -35,7 +35,7 @@ final class ClientBuilderFactory implements FactoryInterface
      * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): ClientBuilder
+    public function __invoke(ContainerInterface $container, $requestedName, array | null $options = null): ClientBuilder
     {
         $config = $container->get(ConfigInterface::class);
         assert($config instanceof ConfigInterface);
