@@ -61,7 +61,7 @@ jobs:
           extensions: "none, phar, json, opcache, ${{ join(fromJson(needs.ci.outputs.extensions), ', ') }}"
           ini-values: "opcache.enable=1, opcache.fast_shutdown=0, zend.assertions=1, assert.exception=On, intl.default_locale=de, intl.use_exceptions=1, zend.exception_ignore_args=0"
           coverage: "none"
-          tools: "${{ env.TOOLS }}"
+          tools: "composer:v2"
 
       - name: "Update dependencies with composer"
         uses: "ramsey/composer-install@v1"
@@ -113,7 +113,7 @@ jobs:
           extensions: "none, phar, json, opcache, ${{ join(fromJson(needs.ci.outputs.extensions), ', ') }}"
           ini-values: "opcache.enable=1, opcache.fast_shutdown=0, zend.assertions=1, assert.exception=On, intl.default_locale=de, intl.use_exceptions=1, zend.exception_ignore_args=0, xdebug.mode=coverage"
           coverage: "xdebug"
-          tools: "${{ env.TOOLS }}, infection"
+          tools: "composer:v2, infection"
 
       - name: "Update dependencies with composer"
         uses: "ramsey/composer-install@v1"
