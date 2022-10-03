@@ -50,7 +50,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Mimmi20\\ClientBuilder\\": "test/"
+      "Mimmi20\\ClientBuilder\\": "tests/"
     }
   },
   "config": {
