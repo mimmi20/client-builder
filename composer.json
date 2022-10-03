@@ -21,6 +21,7 @@
     "laminas/laminas-http": "^2.16.0"
   },
   "require-dev": {
+    "ext-ctype": "*",
     "ext-dom": "*",
     "ext-simplexml": "*",
     "ext-tokenizer": "*",
