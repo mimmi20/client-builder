@@ -5,7 +5,7 @@ parameters:
     processTimeout: 200.0
   paths:
     - src
-    - test
+    - tests
   scanFiles:
     - %currentWorkingDirectory%/vendor/autoload.php
     - %currentWorkingDirectory%/vendor/squizlabs/php_codesniffer/autoload.php

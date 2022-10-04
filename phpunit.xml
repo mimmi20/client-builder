@@ -34,7 +34,7 @@
     </php>
 
     <testsuite name="client-builder Test Suite">
-        <directory>test/</directory>
+        <directory>tests/</directory>
     </testsuite>
 
     <coverage includeUncoveredFiles="true" processUncoveredFiles="true">
