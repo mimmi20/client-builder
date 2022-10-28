@@ -27,7 +27,7 @@
     "ext-xml": "*",
     "ext-xmlwriter": "*",
     "laminas/laminas-dependency-plugin": "^2.2.0",
-    "laminas/laminas-modulemanager": "^2.13.0",
+    "laminas/laminas-modulemanager": "^2.14.0",
     "laminas/laminas-servicemanager": "^3.19.0",
     "mimmi20/coding-standard": "^3.0.17",
     "phpstan/extension-installer": "^1.2.0",
