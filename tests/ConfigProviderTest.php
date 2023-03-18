@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/client-builder package.
  *
- * Copyright (c) 2022, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2022-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -14,14 +14,10 @@ namespace Mimmi20\ClientBuilder;
 
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
-use SebastianBergmann\RecursionContext\InvalidArgumentException;
 
 final class ConfigProviderTest extends TestCase
 {
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testGetDependencyConfig(): void
     {
         $object = new ConfigProvider();
@@ -42,10 +38,7 @@ final class ConfigProviderTest extends TestCase
         self::assertArrayHasKey(ClientBuilderInterface::class, $config['aliases']);
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testInvoke(): void
     {
         $object = new ConfigProvider();

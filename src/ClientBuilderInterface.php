@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/client-builder package.
  *
- * Copyright (c) 2022, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2022-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -20,10 +20,14 @@ interface ClientBuilderInterface
     /**
      * builds the client
      *
-     * @param mixed[] $headers
+     * @param array<mixed> $headers
      * @phpstan-param array<int|string, HeaderInterface|string|array<int|string, string>> $headers
      *
      * @throws Exception
      */
-    public function build(string $uri, string $method, array $headers = []): HttpClient;
+    public function build(
+        string $uri,
+        string $method,
+        array $headers = [],
+    ): HttpClient;
 }

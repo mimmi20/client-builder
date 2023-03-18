@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/client-builder package.
  *
- * Copyright (c) 2022, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2022-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -21,10 +21,8 @@ use RuntimeException;
  */
 final class RequestFailedException extends RuntimeException
 {
-    private int $statusCode = 500;
-
+    private int $statusCode           = 500;
     private Response | null $response = null;
-
     private HttpClient | null $client = null;
 
     /** @throws void */

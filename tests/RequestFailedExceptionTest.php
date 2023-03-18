@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/client-builder package.
  *
- * Copyright (c) 2022, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2022-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -16,7 +16,6 @@ use Laminas\Http\Client as HttpClient;
 use Laminas\Http\Response;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
-use SebastianBergmann\RecursionContext\InvalidArgumentException;
 
 final class RequestFailedExceptionTest extends TestCase
 {
@@ -28,10 +27,7 @@ final class RequestFailedExceptionTest extends TestCase
         $this->object = new RequestFailedException();
     }
 
-    /**
-     * @throws InvalidArgumentException
-     * @throws ExpectationFailedException
-     */
+    /** @throws ExpectationFailedException */
     public function testGetStatusCode(): void
     {
         self::assertSame(500, $this->object->getStatusCode());
@@ -41,10 +37,7 @@ final class RequestFailedExceptionTest extends TestCase
         self::assertSame(404, $this->object->getStatusCode());
     }
 
-    /**
-     * @throws InvalidArgumentException
-     * @throws ExpectationFailedException
-     */
+    /** @throws ExpectationFailedException */
     public function testGetResponse(): void
     {
         self::assertNull($this->object->getResponse());
@@ -56,10 +49,7 @@ final class RequestFailedExceptionTest extends TestCase
         self::assertSame($response, $this->object->getResponse());
     }
 
-    /**
-     * @throws InvalidArgumentException
-     * @throws ExpectationFailedException
-     */
+    /** @throws ExpectationFailedException */
     public function testGetClient(): void
     {
         self::assertNull($this->object->getClient());
