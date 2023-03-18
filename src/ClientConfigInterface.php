@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/client-builder package.
  *
- * Copyright (c) 2022, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2022-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -17,9 +17,9 @@ use Laminas\Http\Header\HeaderInterface;
 interface ClientConfigInterface
 {
     /**
-     * Get the config options for Cleverreach
+     * Get the http headers for the http client
      *
-     * @return (HeaderInterface|string|array)[] $headers
+     * @return array<(HeaderInterface|string|array)> $headers
      * @phpstan-return array<int|string, HeaderInterface|string|array<int|string, string>> $headers
      *
      * @throws void
@@ -29,7 +29,7 @@ interface ClientConfigInterface
     /**
      * Get the config options for the http client
      *
-     * @return bool[]|int[]|string[]
+     * @return array<bool>|array<int>|array<string>
      * @phpstan-return array{timeout: int, connecttimeout: int, sslallowselfsigned: bool, sslverifypeer: bool, sslverifypeername: bool, storeresponse: bool, maxredirects: int}
      *
      * @throws void

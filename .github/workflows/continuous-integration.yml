@@ -9,6 +9,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: "${{ github.event_name }}-${{ github.workflow }}-${{ github.head_ref || github.run_id }}-${{ github.ref }}"
+  cancel-in-progress: true
+
 jobs:
   ci:
     name: "Run CI"
@@ -19,6 +23,10 @@ jobs:
       ini-values: "opcache.enable=1, opcache.fast_shutdown=0, zend.assertions=1, assert.exception=On, intl.default_locale=de, intl.use_exceptions=1, zend.exception_ignore_args=0"
       composer-options: "--optimize-autoloader --prefer-dist --prefer-stable -v"
       composer-outdated-option: ""
+      skip-phpstan: false
+      skip-phplint: false
+      skip-rector: false
+      skip-phpmd: false
     secrets:
       envPAT: "${{ secrets.GITHUB_TOKEN }}"
 
@@ -39,11 +47,17 @@ jobs:
           - "ubuntu-20.04"
           - "ubuntu-22.04"
 
-        php-version: ${{ fromJson(needs.ci.outputs.version) }}
+        php-version:
+          - "8.1"
+          - "8.2"
 
         dependencies:
           - "highest"
           - "lowest"
+
+        ts:
+          - "ts"
+          - "nts"
 
     steps:
       - name: "Checkout"
@@ -55,16 +69,20 @@ jobs:
           persist-credentials: false
 
       - name: "Install PHP"
-        uses: "shivammathur/setup-php@2.22.0"
+        uses: "shivammathur/setup-php@2.24.0"
         with:
           php-version: "${{ matrix.php-version }}"
           extensions: "none, phar, json, opcache, ${{ join(fromJson(needs.ci.outputs.extensions), ', ') }}"
           ini-values: "opcache.enable=1, opcache.fast_shutdown=0, zend.assertions=1, assert.exception=On, intl.default_locale=de, intl.use_exceptions=1, zend.exception_ignore_args=0"
           coverage: "none"
           tools: "composer:v2"
+        env:
+          fail-fast: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          phpts: "${{ matrix.ts }}"
 
       - name: "Update dependencies with composer"
-        uses: "ramsey/composer-install@v2"
+        uses: "ramsey/composer-install@2.2.0"
         with:
           dependency-versions: "${{ matrix.dependencies }}"
           composer-options: "--optimize-autoloader --prefer-dist --prefer-stable -v"
@@ -75,9 +93,7 @@ jobs:
   code-coverage:
     name: "Code Coverage with PHPUnit"
 
-    needs:
-      - "ci"
-      - "tests"
+    needs: "tests"
 
     runs-on: "${{ matrix.operating-system }}"
     timeout-minutes: 10
@@ -91,7 +107,9 @@ jobs:
           - "ubuntu-20.04"
           - "ubuntu-22.04"
 
-        php-version: ${{ fromJson(needs.ci.outputs.version) }}
+        php-version:
+          - "8.1"
+          - "8.2"
 
         dependencies:
           - "highest"
@@ -107,16 +125,20 @@ jobs:
           persist-credentials: false
 
       - name: "Install PHP"
-        uses: "shivammathur/setup-php@2.22.0"
+        uses: "shivammathur/setup-php@2.24.0"
         with:
           php-version: "${{ matrix.php-version }}"
           extensions: "none, phar, json, opcache, ${{ join(fromJson(needs.ci.outputs.extensions), ', ') }}, ctype, intl"
           ini-values: "opcache.enable=1, opcache.fast_shutdown=0, zend.assertions=1, assert.exception=On, intl.default_locale=de, intl.use_exceptions=1, zend.exception_ignore_args=0, xdebug.mode=coverage"
           coverage: "xdebug"
-          tools: "composer:v2, infection"
+          tools: "composer:v2"
+        env:
+          fail-fast: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          phpts: "ts"
 
       - name: "Update dependencies with composer"
-        uses: "ramsey/composer-install@v2"
+        uses: "ramsey/composer-install@2.2.0"
         with:
           dependency-versions: "${{ matrix.dependencies }}"
           composer-options: "--optimize-autoloader --prefer-dist --prefer-stable -v"
@@ -125,7 +147,7 @@ jobs:
         run: "mkdir -p .build/coverage"
 
       - name: "Collect code coverage with Xdebug and phpunit/phpunit"
-        run: "vendor/bin/phpunit -c phpunit.xml --verbose --coverage-clover=.build/coverage/clover.xml --coverage-text --coverage-xml=.build/coverage/coverage-xml --log-junit=.build/coverage/phpunit.junit.xml"
+        run: "vendor/bin/phpunit -c phpunit.xml --coverage-clover=.build/coverage/clover.xml --coverage-text --coverage-xml=.build/coverage/coverage-xml --log-junit=.build/coverage/phpunit.junit.xml"
 
       - name: "Upload coverage to Codecov"
         uses: "codecov/codecov-action@v3.1.1"
@@ -135,4 +157,29 @@ jobs:
           verbose: false
 
       - name: "Run mutation tests with infection/infection"
-        run: "infection --show-mutations --min-covered-msi=76 --min-msi=61 --coverage=.build/coverage --logger-github"
+        env:
+          STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
+        run: "vendor/bin/infection --show-mutations --only-covered --min-covered-msi=76 --min-msi=61 --coverage=.build/coverage --logger-github --no-progress -vv"
+
+  # This is a meta job to avoid to have to constantly change the protection rules
+  # whenever we touch the matrix.
+  tests-status:
+    name: "Unit & Integration Tests Status"
+
+    runs-on: "ubuntu-22.04"
+
+    if: always()
+
+    needs:
+      - "ci"
+      - "tests"
+      - "code-coverage"
+
+    steps:
+      - name: Successful run
+        if: ${{ !(contains(needs.*.result, 'failure')) }}
+        run: exit 0
+
+      - name: Failing run
+        if: ${{ contains(needs.*.result, 'failure') }}
+        run: exit 1

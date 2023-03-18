@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/client-builder package.
  *
- * Copyright (c) 2022, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2022-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,13 +13,9 @@ declare(strict_types = 1);
 namespace Mimmi20\ClientBuilder;
 
 use Laminas\Http\Client as HttpClient;
-use Laminas\Http\Header\CacheControl;
-use Laminas\Http\Header\Connection;
 use Laminas\Http\Header\Exception\InvalidArgumentException;
-use Laminas\Http\Header\Pragma;
 use Laminas\Http\Headers;
 use Laminas\Http\Request;
-use PHPUnit\Framework\Constraint\IsInstanceOf;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 
@@ -29,10 +25,7 @@ use const CASE_LOWER;
 
 final class ClientBuilderTest extends TestCase
 {
-    /**
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws ExpectationFailedException
-     */
+    /** @throws ExpectationFailedException */
     public function testBuild(): void
     {
         $uri       = 'https://test.uri';
@@ -93,7 +86,6 @@ final class ClientBuilderTest extends TestCase
     }
 
     /**
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      * @throws ExpectationFailedException
      * @throws Exception
      */
@@ -129,12 +121,16 @@ final class ClientBuilderTest extends TestCase
             ->method('addHeaders')
             ->with($configHeaders + $headers);
         $headersObj->expects(self::exactly(3))
-            ->method('addHeader')
-            ->withConsecutive([new IsInstanceOf(CacheControl::class)], [new IsInstanceOf(Pragma::class)], [new IsInstanceOf(Connection::class)]);
+            ->method('addHeader');
         $headersObj->expects(self::exactly(3))
             ->method('has')
-            ->withConsecutive(['cache-control'], ['pragma'], ['connection'])
-            ->willReturnOnConsecutiveCalls(false, false, false);
+            ->willReturnMap(
+                [
+                    ['cache-control', false],
+                    ['pragma', false],
+                    ['connection', false],
+                ],
+            );
 
         $request = $this->getMockBuilder(Request::class)
             ->disableOriginalConstructor()
@@ -173,10 +169,7 @@ final class ClientBuilderTest extends TestCase
         self::assertInstanceOf(HttpClient::class, $result);
     }
 
-    /**
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws ExpectationFailedException
-     */
+    /** @throws ExpectationFailedException */
     public function testBuild3(): void
     {
         $uri           = 'https://test.uri';
@@ -249,7 +242,6 @@ final class ClientBuilderTest extends TestCase
     }
 
     /**
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      * @throws ExpectationFailedException
      * @throws Exception
      */
@@ -288,8 +280,13 @@ final class ClientBuilderTest extends TestCase
             ->method('addHeader');
         $headersObj->expects(self::exactly(3))
             ->method('has')
-            ->withConsecutive(['cache-control'], ['pragma'], ['connection'])
-            ->willReturnOnConsecutiveCalls(true, true, true);
+            ->willReturnMap(
+                [
+                    ['cache-control', true],
+                    ['pragma', true],
+                    ['connection', true],
+                ],
+            );
 
         $request = $this->getMockBuilder(Request::class)
             ->disableOriginalConstructor()
@@ -326,10 +323,7 @@ final class ClientBuilderTest extends TestCase
         self::assertInstanceOf(HttpClient::class, $object->build($uri, $method, $headers));
     }
 
-    /**
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws ExpectationFailedException
-     */
+    /** @throws ExpectationFailedException */
     public function testBuild5(): void
     {
         $uri           = 'https://test.uri';
@@ -366,8 +360,13 @@ final class ClientBuilderTest extends TestCase
             ->method('addHeader');
         $headersObj->expects(self::exactly(3))
             ->method('has')
-            ->withConsecutive(['cache-control'], ['pragma'], ['connection'])
-            ->willReturnOnConsecutiveCalls(true, true, true);
+            ->willReturnMap(
+                [
+                    ['cache-control', true],
+                    ['pragma', true],
+                    ['connection', true],
+                ],
+            );
 
         $request = $this->getMockBuilder(Request::class)
             ->disableOriginalConstructor()
@@ -415,7 +414,6 @@ final class ClientBuilderTest extends TestCase
     }
 
     /**
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      * @throws ExpectationFailedException
      * @throws Exception
      */
@@ -454,8 +452,13 @@ final class ClientBuilderTest extends TestCase
             ->method('addHeader');
         $headersObj->expects(self::exactly(3))
             ->method('has')
-            ->withConsecutive(['cache-control'], ['pragma'], ['connection'])
-            ->willReturnOnConsecutiveCalls(true, true, true);
+            ->willReturnMap(
+                [
+                    ['cache-control', true],
+                    ['pragma', true],
+                    ['connection', true],
+                ],
+            );
 
         $request = $this->getMockBuilder(Request::class)
             ->disableOriginalConstructor()
