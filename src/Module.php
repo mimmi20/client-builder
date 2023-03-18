@@ -19,6 +19,8 @@ final class Module implements ConfigProviderInterface
     /**
      * @return array<string, array<string, array<string, string>>>
      * @phpstan-return array{service_manager: array{aliases: array<string|class-string, class-string>, factories: array<class-string, class-string>}}
+     *
+     * @throws  void
      */
     public function getConfig(): array
     {
