@@ -42,11 +42,8 @@ final class ClientBuilder implements ClientBuilderInterface
      *
      * @throws Exception
      */
-    public function build(
-        string $uri,
-        string $method,
-        array $headers = [],
-    ): HttpClient {
+    public function build(string $uri, string $method, array $headers = []): HttpClient
+    {
         $headers = array_change_key_case($headers, CASE_LOWER);
 
         $client = clone $this->client;
