@@ -25,9 +25,5 @@ interface ClientBuilderInterface
      *
      * @throws Exception
      */
-    public function build(
-        string $uri,
-        string $method,
-        array $headers = [],
-    ): HttpClient;
+    public function build(string $uri, string $method, array $headers = []): HttpClient;
 }
