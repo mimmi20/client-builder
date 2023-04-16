@@ -122,15 +122,18 @@ final class ClientBuilderTest extends TestCase
             ->with($configHeaders + $headers);
         $headersObj->expects(self::exactly(3))
             ->method('addHeader');
-        $headersObj->expects(self::exactly(3))
+        $matcher = self::exactly(3);
+        $headersObj->expects($matcher)
             ->method('has')
-            ->willReturnMap(
-                [
-                    ['cache-control', false],
-                    ['pragma', false],
-                    ['connection', false],
-                ],
-            );
+            ->willReturnCallback(static function (string $param) use ($matcher): bool {
+                match ($matcher->numberOfInvocations()) {
+                    1 => self::assertSame('cache-control', $param),
+                    2 => self::assertSame('pragma', $param),
+                    3 => self::assertSame('connection', $param),
+                };
+
+                return false;
+            });
 
         $request = $this->getMockBuilder(Request::class)
             ->disableOriginalConstructor()
@@ -169,7 +172,11 @@ final class ClientBuilderTest extends TestCase
         self::assertInstanceOf(HttpClient::class, $result);
     }
 
-    /** @throws ExpectationFailedException */
+    /**
+     * @throws ExpectationFailedException
+     *
+     * @psalm-suppress InvalidArgument
+     */
     public function testBuild3(): void
     {
         $uri           = 'https://test.uri';
@@ -278,15 +285,18 @@ final class ClientBuilderTest extends TestCase
             ->with($configHeaders + $headers);
         $headersObj->expects(self::never())
             ->method('addHeader');
-        $headersObj->expects(self::exactly(3))
+        $matcher = self::exactly(3);
+        $headersObj->expects($matcher)
             ->method('has')
-            ->willReturnMap(
-                [
-                    ['cache-control', true],
-                    ['pragma', true],
-                    ['connection', true],
-                ],
-            );
+            ->willReturnCallback(static function (string $param) use ($matcher): bool {
+                match ($matcher->numberOfInvocations()) {
+                    1 => self::assertSame('cache-control', $param),
+                    2 => self::assertSame('pragma', $param),
+                    3 => self::assertSame('connection', $param),
+                };
+
+                return true;
+            });
 
         $request = $this->getMockBuilder(Request::class)
             ->disableOriginalConstructor()
@@ -358,15 +368,18 @@ final class ClientBuilderTest extends TestCase
             ->with($configHeaders + $headers);
         $headersObj->expects(self::never())
             ->method('addHeader');
-        $headersObj->expects(self::exactly(3))
+        $matcher = self::exactly(3);
+        $headersObj->expects($matcher)
             ->method('has')
-            ->willReturnMap(
-                [
-                    ['cache-control', true],
-                    ['pragma', true],
-                    ['connection', true],
-                ],
-            );
+            ->willReturnCallback(static function (string $param) use ($matcher): bool {
+                match ($matcher->numberOfInvocations()) {
+                    1 => self::assertSame('cache-control', $param),
+                    2 => self::assertSame('pragma', $param),
+                    3 => self::assertSame('connection', $param),
+                };
+
+                return true;
+            });
 
         $request = $this->getMockBuilder(Request::class)
             ->disableOriginalConstructor()
@@ -450,15 +463,18 @@ final class ClientBuilderTest extends TestCase
             ->with($configHeaders + array_change_key_case($headers, CASE_LOWER));
         $headersObj->expects(self::never())
             ->method('addHeader');
-        $headersObj->expects(self::exactly(3))
+        $matcher = self::exactly(3);
+        $headersObj->expects($matcher)
             ->method('has')
-            ->willReturnMap(
-                [
-                    ['cache-control', true],
-                    ['pragma', true],
-                    ['connection', true],
-                ],
-            );
+            ->willReturnCallback(static function (string $param) use ($matcher): bool {
+                match ($matcher->numberOfInvocations()) {
+                    1 => self::assertSame('cache-control', $param),
+                    2 => self::assertSame('pragma', $param),
+                    3 => self::assertSame('connection', $param),
+                };
+
+                return true;
+            });
 
         $request = $this->getMockBuilder(Request::class)
             ->disableOriginalConstructor()

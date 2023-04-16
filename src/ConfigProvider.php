@@ -20,7 +20,7 @@ final class ConfigProvider
      * @return array<string, array<string, array<string, string>>>
      * @phpstan-return array{dependencies: array{aliases: array<string|class-string, class-string>, factories: array<class-string, class-string>}}
      *
-     * @throws  void
+     * @throws void
      */
     public function __invoke(): array
     {
@@ -35,7 +35,7 @@ final class ConfigProvider
      * @return array<string, array<int|string, string>>
      * @phpstan-return array{aliases: array<string|class-string, class-string>, factories: array<class-string, class-string>}
      *
-     * @throws  void
+     * @throws void
      */
     public function getDependencyConfig(): array
     {
