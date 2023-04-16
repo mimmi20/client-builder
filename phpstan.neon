@@ -97,3 +97,4 @@ parameters:
   ignoreErrors:
     - '~array<string, null> given~'
     - '~Call to static method PHPUnit\\Framework\\Assert::assert.*\(\) with .* will always evaluate to true~'
+    - '~Match expression does not handle remaining values: int<min, 0>\|int<4, max>~'
