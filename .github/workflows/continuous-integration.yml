@@ -69,7 +69,7 @@ jobs:
           persist-credentials: false
 
       - name: "Install PHP"
-        uses: "shivammathur/setup-php@2.25.0"
+        uses: "shivammathur/setup-php@2.25.1"
         with:
           php-version: "${{ matrix.php-version }}"
           extensions: "none, phar, json, opcache, dom, iconv, mbstring, simplexml, tokenizer, xml, xmlwriter"
@@ -125,7 +125,7 @@ jobs:
           persist-credentials: false
 
       - name: "Install PHP"
-        uses: "shivammathur/setup-php@2.25.0"
+        uses: "shivammathur/setup-php@2.25.1"
         with:
           php-version: "${{ matrix.php-version }}"
           extensions: "none, phar, json, opcache, dom, iconv, mbstring, simplexml, tokenizer, xml, xmlwriter, ctype, intl, curl"
@@ -150,7 +150,7 @@ jobs:
         run: "vendor/bin/phpunit -c phpunit.xml --coverage-clover=.build/coverage/clover.xml --coverage-text --coverage-xml=.build/coverage/coverage-xml --log-junit=.build/coverage/phpunit.junit.xml"
 
       - name: "Upload coverage to Codecov"
-        uses: "codecov/codecov-action@v3.1.2"
+        uses: "codecov/codecov-action@v3.1.3"
         with:
           file: ".build/coverage/clover.xml"
           flags: "phpunit,php-${{ matrix.php-version }},${{ matrix.operating-system }}"
