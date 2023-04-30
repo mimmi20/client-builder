@@ -23,6 +23,7 @@ use function array_change_key_case;
 
 use const CASE_LOWER;
 
+/** @psalm-suppress InternalMethod */
 final class ClientBuilderTest extends TestCase
 {
     /** @throws ExpectationFailedException */

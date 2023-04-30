@@ -18,6 +18,8 @@ use RuntimeException;
 
 /**
  * exception to show that a request was not successful
+ *
+ * @psalm-suppress ReservedWord
  */
 final class RequestFailedException extends RuntimeException
 {
