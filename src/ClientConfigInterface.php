@@ -20,7 +20,7 @@ interface ClientConfigInterface
     /**
      * Get the http headers for the http client
      *
-     * @return array<(HeaderInterface|string|array)> $headers
+     * @return array<(array|HeaderInterface|string)> $headers
      * @phpstan-return array<int|string, HeaderInterface|string|array<int|string, string>> $headers
      *
      * @throws void
