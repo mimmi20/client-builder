@@ -7,8 +7,8 @@
 ## Code Status
 
 [![codecov](https://codecov.io/gh/mimmi20/client-builder/branch/master/graph/badge.svg)](https://codecov.io/gh/mimmi20/client-builder)
-[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/mimmi20/client-builder.svg)](http://isitmaintained.com/project/mimmi20/client-builder "Average time to resolve an issue")
-[![Percentage of issues still open](http://isitmaintained.com/badge/open/mimmi20/client-builder.svg)](http://isitmaintained.com/project/mimmi20/client-builder "Percentage of issues still open")
+[![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/mimmi20/client-builder.svg)](https://isitmaintained.com/project/mimmi20/client-builder "Average time to resolve an issue")
+[![Percentage of issues still open](https://isitmaintained.com/badge/open/mimmi20/client-builder.svg)](https://isitmaintained.com/project/mimmi20/client-builder "Percentage of issues still open")
 
 ## Requirements
 
