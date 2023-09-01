@@ -44,7 +44,9 @@ final class ModuleTest extends TestCase
         self::assertArrayHasKey('aliases', $config['service_manager']);
 
         self::assertIsArray($config['service_manager']['aliases']);
-        self::assertCount(1, $config['service_manager']['aliases']);
+        self::assertCount(3, $config['service_manager']['aliases']);
         self::assertArrayHasKey(ClientBuilderInterface::class, $config['service_manager']['aliases']);
+        self::assertArrayHasKey(ClientConfigInterface::class, $config['service_manager']['aliases']);
+        self::assertArrayHasKey(ConfigInterface::class, $config['service_manager']['aliases']);
     }
 }

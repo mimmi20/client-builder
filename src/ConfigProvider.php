@@ -43,6 +43,8 @@ final class ConfigProvider
         return [
             'aliases' => [
                 ClientBuilderInterface::class => ClientBuilder::class,
+                ClientConfigInterface::class => ClientConfig::class,
+                ConfigInterface::class => Config::class,
             ],
             'factories' => [
                 ClientBuilder::class => ClientBuilderFactory::class,

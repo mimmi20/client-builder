@@ -30,8 +30,8 @@ interface ClientConfigInterface
     /**
      * Get the config options for the http client
      *
-     * @return array<bool>|array<int>|array<string>
-     * @phpstan-return array{timeout: int, connecttimeout: int, sslallowselfsigned: bool, sslverifypeer: bool, sslverifypeername: bool, storeresponse: bool, maxredirects: int}
+     * @return array<bool|int|string>
+     * @phpstan-return array{timeout?: int, connecttimeout?: int, sslallowselfsigned?: bool, sslverifypeer?: bool, sslverifypeername?: bool, storeresponse?: bool, maxredirects?: int}
      *
      * @throws void
      */
