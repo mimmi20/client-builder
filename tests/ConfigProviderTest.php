@@ -40,8 +40,10 @@ final class ConfigProviderTest extends TestCase
         self::assertArrayHasKey('aliases', $config);
 
         self::assertIsArray($config['aliases']);
-        self::assertCount(1, $config['aliases']);
+        self::assertCount(3, $config['aliases']);
         self::assertArrayHasKey(ClientBuilderInterface::class, $config['aliases']);
+        self::assertArrayHasKey(ClientConfigInterface::class, $config['aliases']);
+        self::assertArrayHasKey(ConfigInterface::class, $config['aliases']);
     }
 
     /** @throws Exception */
@@ -65,7 +67,9 @@ final class ConfigProviderTest extends TestCase
         self::assertArrayHasKey('aliases', $config['dependencies']);
 
         self::assertIsArray($config['dependencies']['aliases']);
-        self::assertCount(1, $config['dependencies']['aliases']);
+        self::assertCount(3, $config['dependencies']['aliases']);
         self::assertArrayHasKey(ClientBuilderInterface::class, $config['dependencies']['aliases']);
+        self::assertArrayHasKey(ClientConfigInterface::class, $config['dependencies']['aliases']);
+        self::assertArrayHasKey(ConfigInterface::class, $config['dependencies']['aliases']);
     }
 }
