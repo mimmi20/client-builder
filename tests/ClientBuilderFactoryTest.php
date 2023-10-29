@@ -12,13 +12,19 @@ declare(strict_types = 1);
 
 namespace Mimmi20\ClientBuilder;
 
+use LogicException;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 
 final class ClientBuilderFactoryTest extends TestCase
 {
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     * @throws LogicException
+     */
     public function testInvoke(): void
     {
         $config = $this->createMock(ConfigInterface::class);
