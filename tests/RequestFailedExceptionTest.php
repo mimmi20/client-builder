@@ -17,16 +17,11 @@ use Laminas\Http\Response;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 
-/** @psalm-suppress PropertyNotSetInConstructor */
 final class RequestFailedExceptionTest extends TestCase
 {
     private RequestFailedException $object;
 
-    /**
-     * @throws void
-     *
-     * @psalm-suppress ReservedWord
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->object = new RequestFailedException();

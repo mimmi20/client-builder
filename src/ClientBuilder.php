@@ -26,11 +26,7 @@ use const CASE_LOWER;
 
 final class ClientBuilder implements ClientBuilderInterface
 {
-    /**
-     * @throws void
-     *
-     * @psalm-suppress ReservedWord
-     */
+    /** @throws void */
     public function __construct(
         private readonly ConfigInterface $config,
         private readonly HttpClient $client,

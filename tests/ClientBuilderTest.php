@@ -23,7 +23,6 @@ use function array_change_key_case;
 
 use const CASE_LOWER;
 
-/** @psalm-suppress InternalMethod */
 final class ClientBuilderTest extends TestCase
 {
     /** @throws ExpectationFailedException */
@@ -173,11 +172,7 @@ final class ClientBuilderTest extends TestCase
         self::assertInstanceOf(HttpClient::class, $result);
     }
 
-    /**
-     * @throws ExpectationFailedException
-     *
-     * @psalm-suppress InvalidArgument
-     */
+    /** @throws ExpectationFailedException */
     public function testBuild3(): void
     {
         $uri           = 'https://test.uri';
