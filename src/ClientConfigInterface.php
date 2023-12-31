@@ -14,7 +14,6 @@ namespace Mimmi20\ClientBuilder;
 
 use Laminas\Http\Header\HeaderInterface;
 
-/** @psalm-suppress ReservedWord */
 interface ClientConfigInterface
 {
     /**

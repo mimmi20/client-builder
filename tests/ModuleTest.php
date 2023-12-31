@@ -15,12 +15,6 @@ namespace Mimmi20\ClientBuilder;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @psalm-suppress InternalMethod
- * @psalm-suppress PropertyNotSetInConstructor
- * @psalm-suppress RedundantCondition
- * @psalm-suppress RedundantConditionGivenDocblockType
- */
 final class ModuleTest extends TestCase
 {
     /** @throws Exception */

@@ -12,7 +12,6 @@ declare(strict_types = 1);
 
 namespace Mimmi20\ClientBuilder;
 
-/** @psalm-suppress ReservedWord */
 final class ConfigProvider
 {
     /**

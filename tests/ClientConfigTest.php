@@ -15,7 +15,6 @@ namespace Mimmi20\ClientBuilder;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 
-/** @psalm-suppress InternalMethod */
 final class ClientConfigTest extends TestCase
 {
     /** @throws ExpectationFailedException */
