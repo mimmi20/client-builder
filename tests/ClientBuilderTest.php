@@ -13,13 +13,18 @@ declare(strict_types = 1);
 namespace Mimmi20\ClientBuilder;
 
 use Laminas\Http\Client as HttpClient;
+use Laminas\Http\Header\CacheControl;
+use Laminas\Http\Header\Connection;
 use Laminas\Http\Header\Exception\InvalidArgumentException;
+use Laminas\Http\Header\HeaderInterface;
+use Laminas\Http\Header\Pragma;
 use Laminas\Http\Headers;
 use Laminas\Http\Request;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 
 use function array_change_key_case;
+use function assert;
 
 use const CASE_LOWER;
 
@@ -120,8 +125,40 @@ final class ClientBuilderTest extends TestCase
         $headersObj->expects(self::once())
             ->method('addHeaders')
             ->with($configHeaders + $headers);
-        $headersObj->expects(self::exactly(3))
-            ->method('addHeader');
+        $matcher = self::exactly(3);
+        $headersObj->expects($matcher)
+            ->method('addHeader')
+            ->willReturnCallback(static function (HeaderInterface $header) use ($matcher): void {
+                $invocation = $matcher->numberOfInvocations();
+
+                switch ($invocation) {
+                    case 1:
+                        self::assertInstanceOf(CacheControl::class, $header);
+                        assert($header instanceof CacheControl);
+                        self::assertTrue($header->hasDirective('no-store'));
+                        self::assertTrue($header->getDirective('no-store'));
+                        self::assertTrue($header->hasDirective('no-cache'));
+                        self::assertTrue($header->getDirective('no-cache'));
+                        self::assertTrue($header->hasDirective('must-revalidate'));
+                        self::assertTrue($header->getDirective('must-revalidate'));
+                        self::assertTrue($header->hasDirective('post-check'));
+                        self::assertTrue($header->getDirective('post-check'));
+                        self::assertTrue($header->hasDirective('pre-check'));
+                        self::assertTrue($header->getDirective('pre-check'));
+
+                        break;
+                    case 2:
+                        self::assertInstanceOf(Pragma::class, $header);
+                        assert($header instanceof Pragma);
+                        self::assertSame('no-cache', $header->getFieldValue());
+
+                        break;
+                    default:
+                        self::assertInstanceOf(Connection::class, $header);
+                        assert($header instanceof Connection);
+                        self::assertTrue($header->isPersistent());
+                }
+            });
         $matcher = self::exactly(3);
         $headersObj->expects($matcher)
             ->method('has')
@@ -505,5 +542,86 @@ final class ClientBuilderTest extends TestCase
         $object = new ClientBuilder($config, $client, $headersObj);
 
         self::assertInstanceOf(HttpClient::class, $object->build($uri, $method, $headers));
+    }
+
+    /**
+     * @throws ExpectationFailedException
+     * @throws Exception
+     */
+    public function testBuild7(): void
+    {
+        $uri           = 'https://test.uri';
+        $method        = 'GET';
+        $headers       = ['Cache-Control' => 'no-cache'];
+        $configHeaders = ['a' => 'b'];
+        $options       = ['timeout' => 10];
+
+        $clientConfig = $this->getMockBuilder(ClientConfigInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $clientConfig->expects(self::once())
+            ->method('getHeaders')
+            ->willReturn($configHeaders);
+        $clientConfig->expects(self::once())
+            ->method('getOptions')
+            ->willReturn($options);
+
+        $config = $this->getMockBuilder(ConfigInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $config->expects(self::once())
+            ->method('getClientConfig')
+            ->willReturn($clientConfig);
+
+        $headersObj = new class () extends Headers {
+            /** @phpcs:disable VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable */
+            private bool $cloned = false;
+
+            /** @throws void */
+            public function isCloned(): bool
+            {
+                return $this->cloned;
+            }
+
+            /** @throws void */
+            public function __clone(): void
+            {
+                $this->cloned = true;
+            }
+        };
+
+        $request = $this->getMockBuilder(Request::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $request->expects(self::never())
+            ->method('setHeaders');
+
+        $client = new class () extends HttpClient {
+            /** @phpcs:disable VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable */
+            private bool $cloned = false;
+
+            /** @throws void */
+            public function isCloned(): bool
+            {
+                return $this->cloned;
+            }
+
+            /** @throws void */
+            public function __clone(): void
+            {
+                $this->cloned = true;
+            }
+        };
+
+        $client->setRequest($request);
+
+        $object = new ClientBuilder($config, $client, $headersObj);
+
+        $buildClient = $object->build($uri, $method, $headers);
+
+        self::assertInstanceOf(HttpClient::class, $buildClient);
+        self::assertTrue($buildClient->isCloned());
+        self::assertInstanceOf(Headers::class, $buildClient->getRequest()->getHeaders());
+        self::assertTrue($buildClient->getRequest()->getHeaders()->isCloned());
     }
 }

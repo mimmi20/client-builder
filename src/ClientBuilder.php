@@ -32,6 +32,7 @@ final class ClientBuilder implements ClientBuilderInterface
         private readonly HttpClient $client,
         private readonly Headers $headers,
     ) {
+        // nothing to do
     }
 
     /**

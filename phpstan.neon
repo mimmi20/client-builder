@@ -15,10 +15,10 @@ parameters:
     - %currentWorkingDirectory%/vendor/squizlabs/php_codesniffer/src/Util/Tokens.php
 
   # reports occurrences of type-checking functions always evaluated to true
-  checkAlwaysTrueCheckTypeFunctionCall: true
+  checkAlwaysTrueCheckTypeFunctionCall: false
 
   # reports instanceof occurrences always evaluated to true
-  checkAlwaysTrueInstanceof: true
+  checkAlwaysTrueInstanceof: false
 
   # reports === and !== occurrences always evaluated to true
   checkAlwaysTrueStrictComparison: true
@@ -99,5 +99,5 @@ parameters:
 
   ignoreErrors:
     - '~array<string, null> given~'
-    - '~Call to static method PHPUnit\\Framework\\Assert::assert.*\(\) with .* will always evaluate to true~'
     - '~Match expression does not handle remaining values: int<min, 0>\|int<4, max>~'
+    - '~Call to an undefined method Laminas\\Http\\(Client|Headers)::isCloned\(\)~'
