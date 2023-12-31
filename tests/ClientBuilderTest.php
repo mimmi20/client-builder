@@ -543,4 +543,85 @@ final class ClientBuilderTest extends TestCase
 
         self::assertInstanceOf(HttpClient::class, $object->build($uri, $method, $headers));
     }
+
+    /**
+     * @throws ExpectationFailedException
+     * @throws Exception
+     */
+    public function testBuild7(): void
+    {
+        $uri           = 'https://test.uri';
+        $method        = 'GET';
+        $headers       = ['Cache-Control' => 'no-cache'];
+        $configHeaders = ['a' => 'b'];
+        $options       = ['timeout' => 10];
+
+        $clientConfig = $this->getMockBuilder(ClientConfigInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $clientConfig->expects(self::once())
+            ->method('getHeaders')
+            ->willReturn($configHeaders);
+        $clientConfig->expects(self::once())
+            ->method('getOptions')
+            ->willReturn($options);
+
+        $config = $this->getMockBuilder(ConfigInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $config->expects(self::once())
+            ->method('getClientConfig')
+            ->willReturn($clientConfig);
+
+        $headersObj = new class () extends Headers {
+            /** @phpcs:disable VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable */
+            private bool $cloned = false;
+
+            /** @throws void */
+            public function isCloned(): bool
+            {
+                return $this->cloned;
+            }
+
+            /** @throws void */
+            public function __clone(): void
+            {
+                $this->cloned = true;
+            }
+        };
+
+        $request = $this->getMockBuilder(Request::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $request->expects(self::never())
+            ->method('setHeaders');
+
+        $client = new class () extends HttpClient {
+            /** @phpcs:disable VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable */
+            private bool $cloned = false;
+
+            /** @throws void */
+            public function isCloned(): bool
+            {
+                return $this->cloned;
+            }
+
+            /** @throws void */
+            public function __clone(): void
+            {
+                $this->cloned = true;
+            }
+        };
+
+        $client->setRequest($request);
+
+        $object = new ClientBuilder($config, $client, $headersObj);
+
+        $buildClient = $object->build($uri, $method, $headers);
+
+        self::assertInstanceOf(HttpClient::class, $buildClient);
+        self::assertTrue($buildClient->isCloned());
+        self::assertInstanceOf(Headers::class, $buildClient->getRequest()->getHeaders());
+        self::assertTrue($buildClient->getRequest()->getHeaders()->isCloned());
+    }
 }

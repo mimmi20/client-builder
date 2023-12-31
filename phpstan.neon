@@ -100,3 +100,4 @@ parameters:
   ignoreErrors:
     - '~array<string, null> given~'
     - '~Match expression does not handle remaining values: int<min, 0>\|int<4, max>~'
+    - '~Call to an undefined method Laminas\\Http\\(Client|Headers)::isCloned\(\)~'
