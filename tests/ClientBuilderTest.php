@@ -13,13 +13,18 @@ declare(strict_types = 1);
 namespace Mimmi20\ClientBuilder;
 
 use Laminas\Http\Client as HttpClient;
+use Laminas\Http\Header\CacheControl;
+use Laminas\Http\Header\Connection;
 use Laminas\Http\Header\Exception\InvalidArgumentException;
+use Laminas\Http\Header\HeaderInterface;
+use Laminas\Http\Header\Pragma;
 use Laminas\Http\Headers;
 use Laminas\Http\Request;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 
 use function array_change_key_case;
+use function assert;
 
 use const CASE_LOWER;
 
@@ -120,8 +125,40 @@ final class ClientBuilderTest extends TestCase
         $headersObj->expects(self::once())
             ->method('addHeaders')
             ->with($configHeaders + $headers);
-        $headersObj->expects(self::exactly(3))
-            ->method('addHeader');
+        $matcher = self::exactly(3);
+        $headersObj->expects($matcher)
+            ->method('addHeader')
+            ->willReturnCallback(static function (HeaderInterface $header) use ($matcher): void {
+                $invocation = $matcher->numberOfInvocations();
+
+                switch ($invocation) {
+                    case 1:
+                        self::assertInstanceOf(CacheControl::class, $header);
+                        assert($header instanceof CacheControl);
+                        self::assertTrue($header->hasDirective('no-store'));
+                        self::assertTrue($header->getDirective('no-store'));
+                        self::assertTrue($header->hasDirective('no-cache'));
+                        self::assertTrue($header->getDirective('no-cache'));
+                        self::assertTrue($header->hasDirective('must-revalidate'));
+                        self::assertTrue($header->getDirective('must-revalidate'));
+                        self::assertTrue($header->hasDirective('post-check'));
+                        self::assertTrue($header->getDirective('post-check'));
+                        self::assertTrue($header->hasDirective('pre-check'));
+                        self::assertTrue($header->getDirective('pre-check'));
+
+                        break;
+                    case 2:
+                        self::assertInstanceOf(Pragma::class, $header);
+                        assert($header instanceof Pragma);
+                        self::assertSame('no-cache', $header->getFieldValue());
+
+                        break;
+                    default:
+                        self::assertInstanceOf(Connection::class, $header);
+                        assert($header instanceof Connection);
+                        self::assertTrue($header->isPersistent());
+                }
+            });
         $matcher = self::exactly(3);
         $headersObj->expects($matcher)
             ->method('has')
