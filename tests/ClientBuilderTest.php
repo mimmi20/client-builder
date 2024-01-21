@@ -374,7 +374,7 @@ final class ClientBuilderTest extends TestCase
         $headers       = ['cache-control' => 'no-cache'];
         $configHeaders = ['a' => 'b'];
         $options       = ['timeout' => 10];
-        $exception     = new \Laminas\Http\Client\Exception\InvalidArgumentException('wrong option');
+        $exception     = new HttpClient\Exception\InvalidArgumentException('wrong option');
 
         $clientConfig = $this->getMockBuilder(ClientConfigInterface::class)
             ->disableOriginalConstructor()

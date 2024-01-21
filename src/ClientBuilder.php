@@ -104,7 +104,7 @@ final class ClientBuilder implements ClientBuilderInterface
 
         try {
             $client->setOptions($config->getOptions());
-        } catch (\Laminas\Http\Client\Exception\InvalidArgumentException $e) {
+        } catch (HttpClient\Exception\InvalidArgumentException $e) {
             throw new Exception(
                 $e->getMessage(),
                 0,
