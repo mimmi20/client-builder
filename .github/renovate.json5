@@ -10,15 +10,20 @@
   "automerge": false,
   "commitBody": "Signed-off-by: {{{gitAuthor}}}",
   "commitBodyTable": true,
-  "dependencyDashboard": false,
+  "configMigration": true,
+  "dependencyDashboard": true,
   "enabledManagers": ["composer", "github-actions", "npm"],
   "ignoreUnstable": true,
+  "internalChecksFilter": "strict",
   "labels": [
     "dependencies",
     "patch"
   ],
   "lockFileMaintenance": {
-    "enabled": false
+    "enabled": true,
+    "schedule": [
+      "at 4:00 am on Sunday"
+    ]
   },
   "platformAutomerge": false,
   "prBodyColumns": [
@@ -34,6 +39,7 @@
     "Change": "[{{#if displayFrom}}`{{{displayFrom}}}` -> {{else}}{{#if currentValue}}`{{{currentValue}}}` -> {{/if}}{{/if}}{{#if displayTo}}`{{{displayTo}}}`{{else}}`{{{newValue}}}`{{/if}}]({{#if depName}}https://renovatebot.com/diffs/npm/{{replace '/' '%2f' depName}}/{{{currentVersion}}}/{{{newVersion}}}{{/if}})"
   },
   "prCreation": "immediate",
+  "prHourlyLimit": 0,
   "rangeStrategy": "bump",
   "rebaseWhen": "behind-base-branch",
   "reviewers": [
@@ -56,7 +62,9 @@
       ],
       "matchUpdateTypes": [
         "minor",
-        "patch"
+        "patch",
+        "lockFileMaintenance",
+        "pin"
       ]
     },
     {
