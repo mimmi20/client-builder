@@ -14,6 +14,7 @@ namespace Mimmi20\ClientBuilder;
 
 use Laminas\Http\Client as HttpClient;
 use Laminas\Http\Header\HeaderInterface;
+use Mimmi20\ClientBuilder\Exception\Exception;
 
 interface ClientBuilderInterface
 {

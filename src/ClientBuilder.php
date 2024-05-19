@@ -19,6 +19,8 @@ use Laminas\Http\Header\Exception\InvalidArgumentException;
 use Laminas\Http\Header\HeaderInterface;
 use Laminas\Http\Header\Pragma;
 use Laminas\Http\Headers;
+use Mimmi20\ClientBuilder\Exception\ConfigMissingException;
+use Mimmi20\ClientBuilder\Exception\Exception;
 
 use function array_change_key_case;
 
