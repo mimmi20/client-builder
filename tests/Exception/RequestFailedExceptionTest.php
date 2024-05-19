@@ -10,7 +10,7 @@
 
 declare(strict_types = 1);
 
-namespace Mimmi20\ClientBuilder;
+namespace Mimmi20\ClientBuilder\Exception;
 
 use Laminas\Http\Client as HttpClient;
 use Laminas\Http\Response;

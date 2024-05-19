@@ -10,14 +10,14 @@
 
 declare(strict_types = 1);
 
-namespace Mimmi20\ClientBuilder;
+namespace Mimmi20\ClientBuilder\Exception;
 
-use Exception as BaseException;
+use RuntimeException;
 
 /**
- * Exception for our Interfaces
+ * exception to show that something is missing in the config
  */
-final class Exception extends BaseException
+final class ConfigMissingException extends RuntimeException
 {
-    // nothing to do here
+    // nothing to do
 }

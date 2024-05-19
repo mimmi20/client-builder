@@ -10,7 +10,7 @@
 
 declare(strict_types = 1);
 
-namespace Mimmi20\ClientBuilder;
+namespace Mimmi20\ClientBuilder\Exception;
 
 use Laminas\Http\Client as HttpClient;
 use Laminas\Http\Response;
@@ -25,37 +25,61 @@ final class RequestFailedException extends RuntimeException
     private Response | null $response = null;
     private HttpClient | null $client = null;
 
-    /** @throws void */
+    /**
+     * @throws void
+     *
+     * @api
+     */
     public function getStatusCode(): int
     {
         return $this->statusCode;
     }
 
-    /** @throws void */
+    /**
+     * @throws void
+     *
+     * @api
+     */
     public function setStatusCode(int $statusCode): void
     {
         $this->statusCode = $statusCode;
     }
 
-    /** @throws void */
+    /**
+     * @throws void
+     *
+     * @api
+     */
     public function getResponse(): Response | null
     {
         return $this->response;
     }
 
-    /** @throws void */
+    /**
+     * @throws void
+     *
+     * @api
+     */
     public function setResponse(Response $response): void
     {
         $this->response = $response;
     }
 
-    /** @throws void */
+    /**
+     * @throws void
+     *
+     * @api
+     */
     public function getClient(): HttpClient | null
     {
         return $this->client;
     }
 
-    /** @throws void */
+    /**
+     * @throws void
+     *
+     * @api
+     */
     public function setClient(HttpClient $client): void
     {
         $this->client = $client;

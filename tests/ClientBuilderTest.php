@@ -20,6 +20,8 @@ use Laminas\Http\Header\HeaderInterface;
 use Laminas\Http\Header\Pragma;
 use Laminas\Http\Headers;
 use Laminas\Http\Request;
+use Mimmi20\ClientBuilder\Exception\ConfigMissingException;
+use Mimmi20\ClientBuilder\Exception\Exception;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 
@@ -577,7 +579,11 @@ final class ClientBuilderTest extends TestCase
             /** @phpcs:disable VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable */
             private bool $cloned = false;
 
-            /** @throws void */
+            /**
+             * @throws void
+             *
+             * @api
+             */
             public function isCloned(): bool
             {
                 return $this->cloned;
@@ -600,7 +606,11 @@ final class ClientBuilderTest extends TestCase
             /** @phpcs:disable VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable */
             private bool $cloned = false;
 
-            /** @throws void */
+            /**
+             * @throws void
+             *
+             * @api
+             */
             public function isCloned(): bool
             {
                 return $this->cloned;

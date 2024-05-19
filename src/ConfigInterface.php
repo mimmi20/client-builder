@@ -12,6 +12,8 @@ declare(strict_types = 1);
 
 namespace Mimmi20\ClientBuilder;
 
+use Mimmi20\ClientBuilder\Exception\ConfigMissingException;
+
 interface ConfigInterface
 {
     /**
