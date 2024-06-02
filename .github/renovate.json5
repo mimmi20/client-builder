@@ -3,7 +3,7 @@
 
   "extends": ["mergeConfidence:all-badges"],
 
-  "enabled": false,
+  "enabled": true,
 
   "assignees": [
     "mimmi20"
@@ -18,7 +18,9 @@
   "dependencyDashboardApproval": false,
   "dependencyDashboardOSVVulnerabilitySummary": "all",
   // "enabledManagers": ["composer", "github-actions", "npm"],
+  "ignoreTests": false,
   "ignoreUnstable": true,
+  "internalChecksFilter": "strict",
   "labels": [
     "dependencies"
   ],
