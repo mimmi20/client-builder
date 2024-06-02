@@ -29,10 +29,10 @@
     "infection/infection": "^0.27.11 || ^0.28.1",
     "laminas/laminas-modulemanager": "^2.15.0",
     "laminas/laminas-servicemanager": "^3.22.1",
-    "mimmi20/coding-standard": "^5.2.32",
+    "mimmi20/coding-standard": "^5.2.33",
     "nikic/php-parser": "^4.19.1 || ^5.0.2",
     "phpstan/extension-installer": "^1.3.1",
-    "phpstan/phpstan": "^1.11.2",
+    "phpstan/phpstan": "^1.11.3",
     "phpstan/phpstan-deprecation-rules": "^1.2.0",
     "phpstan/phpstan-phpunit": "^1.4.0",
     "phpunit/phpunit": "^10.5.20",
@@ -63,7 +63,6 @@
     "allow-plugins": {
       "dealerdirect/phpcodesniffer-composer-installer": true,
       "infection/extension-installer": true,
-      "laminas/laminas-dependency-plugin": true,
       "phpstan/extension-installer": true
     },
     "lock": false,
