@@ -104,7 +104,7 @@ updates:
     labels:
       - "dependencies"
 
-    versioning-strategy: "increase"
+    versioning-strategy: "widen"
 
     target-branch: "master"
 
@@ -113,6 +113,9 @@ updates:
       prefix: "npm"
 
     ignore:
+      - dependency-name: "@vitest/coverage-istanbul"
+      - dependency-name: "@vitest/ui"
+      - dependency-name: "vitest"
       - dependency-name: "supports-color"
 
     # Disable rebasing for all pull requests
