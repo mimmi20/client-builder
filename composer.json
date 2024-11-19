@@ -16,7 +16,7 @@
     "source": "https://github.com/mimmi20/client-builder"
   },
   "require": {
-    "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0",
+    "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
     "laminas/laminas-http": "^2.20.0"
   },
   "require-dev": {
@@ -26,11 +26,11 @@
     "ext-tokenizer": "*",
     "ext-xml": "*",
     "ext-xmlwriter": "*",
-    "infection/infection": "^0.27.11 || ^0.28.1 || ^0.29.0",
+    "infection/infection": "^0.29.8",
     "laminas/laminas-modulemanager": "^2.16.0",
     "laminas/laminas-servicemanager": "^3.22.1",
     "mimmi20/coding-standard": "^5.2.44",
-    "nikic/php-parser": "^4.19.1 || ^5.0.2",
+    "nikic/php-parser": "^5.3.1",
     "phpstan/extension-installer": "^1.4.3",
     "phpstan/phpstan": "^1.12.8",
     "phpstan/phpstan-deprecation-rules": "^1.2.1",
