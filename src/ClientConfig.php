@@ -13,11 +13,12 @@ declare(strict_types = 1);
 namespace Mimmi20\ClientBuilder;
 
 use Laminas\Http\Header\HeaderInterface;
+use Override;
 
 /**
  * Config für das Minify und das Hinzufügen der Revision
  */
-final class ClientConfig implements ClientConfigInterface
+final readonly class ClientConfig implements ClientConfigInterface
 {
     /**
      * @param array<(array|HeaderInterface|string)> $headers
@@ -27,7 +28,7 @@ final class ClientConfig implements ClientConfigInterface
      *
      * @throws void
      */
-    public function __construct(private readonly array $headers = [], private readonly array $options = [])
+    public function __construct(private array $headers = [], private array $options = [])
     {
         // nothing to do
     }
@@ -40,6 +41,7 @@ final class ClientConfig implements ClientConfigInterface
      *
      * @throws void
      */
+    #[Override]
     public function getHeaders(): array
     {
         return $this->headers;
@@ -53,6 +55,7 @@ final class ClientConfig implements ClientConfigInterface
      *
      * @throws void
      */
+    #[Override]
     public function getOptions(): array
     {
         return $this->options;

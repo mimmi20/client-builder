@@ -21,19 +21,17 @@ use Laminas\Http\Header\Pragma;
 use Laminas\Http\Headers;
 use Mimmi20\ClientBuilder\Exception\ConfigMissingException;
 use Mimmi20\ClientBuilder\Exception\Exception;
+use Override;
 
 use function array_change_key_case;
 
 use const CASE_LOWER;
 
-final class ClientBuilder implements ClientBuilderInterface
+final readonly class ClientBuilder implements ClientBuilderInterface
 {
     /** @throws void */
-    public function __construct(
-        private readonly ConfigInterface $config,
-        private readonly HttpClient $client,
-        private readonly Headers $headers,
-    ) {
+    public function __construct(private ConfigInterface $config, private HttpClient $client, private Headers $headers)
+    {
         // nothing to do
     }
 
@@ -45,6 +43,7 @@ final class ClientBuilder implements ClientBuilderInterface
      *
      * @throws Exception
      */
+    #[Override]
     public function build(string $uri, string $method, array $headers = []): HttpClient
     {
         $headers = array_change_key_case($headers, CASE_LOWER);

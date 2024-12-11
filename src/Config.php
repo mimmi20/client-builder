@@ -12,18 +12,21 @@ declare(strict_types = 1);
 
 namespace Mimmi20\ClientBuilder;
 
+use Override;
+
 /**
  * Config für das Minify und das Hinzufügen der Revision
  */
-final class Config implements ConfigInterface
+final readonly class Config implements ConfigInterface
 {
     /** @throws void */
-    public function __construct(private readonly ClientConfigInterface $config)
+    public function __construct(private ClientConfigInterface $config)
     {
         // nothing to do
     }
 
     /** @throws void */
+    #[Override]
     public function getClientConfig(): ClientConfigInterface
     {
         return $this->config;
