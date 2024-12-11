@@ -14,6 +14,7 @@ namespace Mimmi20\ClientBuilder\Exception;
 
 use Laminas\Http\Client as HttpClient;
 use Laminas\Http\Response;
+use Override;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 
@@ -22,6 +23,7 @@ final class RequestFailedExceptionTest extends TestCase
     private RequestFailedException $object;
 
     /** @throws void */
+    #[Override]
     protected function setUp(): void
     {
         $this->object = new RequestFailedException();

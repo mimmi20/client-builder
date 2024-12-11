@@ -16,7 +16,7 @@
     "source": "https://github.com/mimmi20/client-builder"
   },
   "require": {
-    "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
+    "php": "~8.3.0 || ~8.4.0 || ~8.5.0",
     "laminas/laminas-http": "^2.21.0"
   },
   "require-dev": {
@@ -35,10 +35,11 @@
     "phpstan/phpstan": "^1.12.8",
     "phpstan/phpstan-deprecation-rules": "^1.2.1",
     "phpstan/phpstan-phpunit": "^1.4.0",
-    "phpunit/phpunit": "^10.5.25",
+    "phpunit/phpunit": "^11.4.4",
     "psr/container": "^1.1.2 || ^2.0.2",
     "rector/rector": "^1.2.10",
     "rector/type-perfect": "^1.0.0",
+    "symfony/process": "^7.2.0",
     "symplify/phpstan-rules": "^13.0.1",
     "tomasvotruba/cognitive-complexity": "^0.2.3",
     "tomasvotruba/type-coverage": "^1.0.0",

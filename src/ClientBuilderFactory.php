@@ -16,6 +16,7 @@ use Laminas\Http\Client as HttpClient;
 use Laminas\Http\Headers;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use LogicException;
+use Override;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 
@@ -35,6 +36,7 @@ final class ClientBuilderFactory implements FactoryInterface
      * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
+    #[Override]
     public function __invoke(
         ContainerInterface $container,
         $requestedName,
