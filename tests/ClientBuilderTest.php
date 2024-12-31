@@ -169,7 +169,7 @@ final class ClientBuilderTest extends TestCase
                 match ($matcher->numberOfInvocations()) {
                     1 => self::assertSame('cache-control', $param),
                     2 => self::assertSame('pragma', $param),
-                    3 => self::assertSame('connection', $param),
+                    default => self::assertSame('connection', $param),
                 };
 
                 return false;
@@ -328,7 +328,7 @@ final class ClientBuilderTest extends TestCase
                 match ($matcher->numberOfInvocations()) {
                     1 => self::assertSame('cache-control', $param),
                     2 => self::assertSame('pragma', $param),
-                    3 => self::assertSame('connection', $param),
+                    default => self::assertSame('connection', $param),
                 };
 
                 return true;
@@ -411,7 +411,7 @@ final class ClientBuilderTest extends TestCase
                 match ($matcher->numberOfInvocations()) {
                     1 => self::assertSame('cache-control', $param),
                     2 => self::assertSame('pragma', $param),
-                    3 => self::assertSame('connection', $param),
+                    default => self::assertSame('connection', $param),
                 };
 
                 return true;
@@ -506,7 +506,7 @@ final class ClientBuilderTest extends TestCase
                 match ($matcher->numberOfInvocations()) {
                     1 => self::assertSame('cache-control', $param),
                     2 => self::assertSame('pragma', $param),
-                    3 => self::assertSame('connection', $param),
+                    default => self::assertSame('connection', $param),
                 };
 
                 return true;
