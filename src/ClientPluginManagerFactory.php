@@ -20,18 +20,16 @@ use Psr\Container\ContainerInterface;
 final class ClientPluginManagerFactory implements FactoryInterface
 {
     /**
-     * @param string            $requestedName
      * @param array<mixed>|null $options
      *
      * @throws void
      *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      */
     #[Override]
     public function __invoke(
         ContainerInterface $container,
-        $requestedName,
+        string $requestedName,
         array | null $options = null,
     ): ClientPluginManager {
         return new ClientPluginManager($container);
