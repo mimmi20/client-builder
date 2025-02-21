@@ -19,7 +19,7 @@ final class ConfigProvider
      * Returns configuration from file
      *
      * @return array<string, array<string, array<string, string>>>
-     * @phpstan-return array{dependencies: array{aliases: array<string|class-string, class-string>, factories: array<class-string, class-string>}}
+     * @phpstan-return array{dependencies: array{factories: array<class-string, class-string>}}
      *
      * @throws void
      */
@@ -33,21 +33,16 @@ final class ConfigProvider
     /**
      * Return application-level dependency configuration.
      *
-     * @return array<string, array<int|string, string>>
-     * @phpstan-return array{aliases: array<string|class-string, class-string>, factories: array<class-string, class-string>}
+     * @return array<string, array<string, string>>
+     * @phpstan-return array{factories: array<class-string, class-string>}
      *
      * @throws void
      */
     public function getDependencyConfig(): array
     {
         return [
-            'aliases' => [
-                ClientBuilderInterface::class => ClientBuilder::class,
-                ClientConfigInterface::class => ClientConfig::class,
-                ConfigInterface::class => Config::class,
-            ],
             'factories' => [
-                ClientBuilder::class => ClientBuilderFactory::class,
+                ClientPluginManager::class => ClientPluginManagerFactory::class,
             ],
         ];
     }

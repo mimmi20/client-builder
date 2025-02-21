@@ -13,39 +13,27 @@ declare(strict_types = 1);
 
 namespace Mimmi20\ClientBuilder;
 
-use Laminas\Http\Client as HttpClient;
-use Laminas\Http\Headers;
 use Laminas\ServiceManager\Factory\FactoryInterface;
-use LogicException;
 use Override;
-use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 
-use function assert;
-
-final class ClientBuilderFactory implements FactoryInterface
+final class ClientPluginManagerFactory implements FactoryInterface
 {
     /**
-     * create http client using config
-     *
      * @param string            $requestedName
      * @param array<mixed>|null $options
      *
-     * @throws LogicException
-     * @throws ContainerExceptionInterface
+     * @throws void
      *
-     * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
+     * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      */
     #[Override]
     public function __invoke(
         ContainerInterface $container,
         $requestedName,
         array | null $options = null,
-    ): ClientBuilder {
-        $config = $container->get(ConfigInterface::class);
-        assert($config instanceof ConfigInterface);
-
-        return new ClientBuilder($config, new HttpClient(), new Headers());
+    ): ClientPluginManager {
+        return new ClientPluginManager($container);
     }
 }
