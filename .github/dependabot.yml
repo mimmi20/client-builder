@@ -104,7 +104,6 @@ updates:
       prefix: "composer (6.x)"
 
     ignore:
-      - dependency-name: "laminas/laminas-servicemanager"
       - dependency-name: "psr/container"
 
     # Disable rebasing for all pull requests

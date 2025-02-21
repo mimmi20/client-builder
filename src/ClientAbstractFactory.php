@@ -38,7 +38,6 @@ final class ClientAbstractFactory implements AbstractFactoryInterface
     /**
      * Create a http client
      *
-     * @param string            $requestedName
      * @param array<mixed>|null $options
      *
      * @throws ContainerExceptionInterface
@@ -46,11 +45,13 @@ final class ClientAbstractFactory implements AbstractFactoryInterface
      * @throws InvalidArgumentException
      *
      * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
     #[Override]
-    public function __invoke(ContainerInterface $container, $requestedName, array | null $options = null): HttpClient
-    {
+    public function __invoke(
+        ContainerInterface $container,
+        string $requestedName,
+        array | null $options = null,
+    ): HttpClient {
         $config = $this->getConfig($container);
         $config = $config[$requestedName];
 
@@ -93,14 +94,10 @@ final class ClientAbstractFactory implements AbstractFactoryInterface
     /**
      * Can we create the requested service?
      *
-     * @param string $requestedName
-     *
      * @throws ContainerExceptionInterface
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
     #[Override]
-    public function canCreate(ContainerInterface $container, $requestedName): bool
+    public function canCreate(ContainerInterface $container, string $requestedName): bool
     {
         // avoid infinite loops when looking up config
         if ($requestedName === 'config' || $requestedName === '') {
