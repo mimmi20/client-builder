@@ -25,20 +25,12 @@ final class ConfigProviderTest extends TestCase
         $config = $object->getDependencyConfig();
 
         self::assertIsArray($config);
-        self::assertCount(2, $config);
+        self::assertCount(1, $config);
         self::assertArrayHasKey('factories', $config);
 
         self::assertIsArray($config['factories']);
         self::assertCount(1, $config['factories']);
-        self::assertArrayHasKey(ClientBuilder::class, $config['factories']);
-
-        self::assertArrayHasKey('aliases', $config);
-
-        self::assertIsArray($config['aliases']);
-        self::assertCount(3, $config['aliases']);
-        self::assertArrayHasKey(ClientBuilderInterface::class, $config['aliases']);
-        self::assertArrayHasKey(ClientConfigInterface::class, $config['aliases']);
-        self::assertArrayHasKey(ConfigInterface::class, $config['aliases']);
+        self::assertArrayHasKey(ClientPluginManager::class, $config['factories']);
     }
 
     /** @throws Exception */
@@ -52,19 +44,11 @@ final class ConfigProviderTest extends TestCase
         self::assertArrayHasKey('dependencies', $config);
 
         self::assertIsArray($config['dependencies']);
-        self::assertCount(2, $config['dependencies']);
+        self::assertCount(1, $config['dependencies']);
         self::assertArrayHasKey('factories', $config['dependencies']);
 
         self::assertIsArray($config['dependencies']['factories']);
         self::assertCount(1, $config['dependencies']['factories']);
-        self::assertArrayHasKey(ClientBuilder::class, $config['dependencies']['factories']);
-
-        self::assertArrayHasKey('aliases', $config['dependencies']);
-
-        self::assertIsArray($config['dependencies']['aliases']);
-        self::assertCount(3, $config['dependencies']['aliases']);
-        self::assertArrayHasKey(ClientBuilderInterface::class, $config['dependencies']['aliases']);
-        self::assertArrayHasKey(ClientConfigInterface::class, $config['dependencies']['aliases']);
-        self::assertArrayHasKey(ConfigInterface::class, $config['dependencies']['aliases']);
+        self::assertArrayHasKey(ClientPluginManager::class, $config['dependencies']['factories']);
     }
 }

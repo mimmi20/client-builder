@@ -29,19 +29,11 @@ final class ModuleTest extends TestCase
         self::assertArrayHasKey('service_manager', $config);
 
         self::assertIsArray($config['service_manager']);
-        self::assertCount(2, $config['service_manager']);
+        self::assertCount(1, $config['service_manager']);
         self::assertArrayHasKey('factories', $config['service_manager']);
 
         self::assertIsArray($config['service_manager']['factories']);
         self::assertCount(1, $config['service_manager']['factories']);
-        self::assertArrayHasKey(ClientBuilder::class, $config['service_manager']['factories']);
-
-        self::assertArrayHasKey('aliases', $config['service_manager']);
-
-        self::assertIsArray($config['service_manager']['aliases']);
-        self::assertCount(3, $config['service_manager']['aliases']);
-        self::assertArrayHasKey(ClientBuilderInterface::class, $config['service_manager']['aliases']);
-        self::assertArrayHasKey(ClientConfigInterface::class, $config['service_manager']['aliases']);
-        self::assertArrayHasKey(ConfigInterface::class, $config['service_manager']['aliases']);
+        self::assertArrayHasKey(ClientPluginManager::class, $config['service_manager']['factories']);
     }
 }

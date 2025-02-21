@@ -17,7 +17,8 @@
   },
   "require": {
     "php": "~8.3.0 || ~8.4.0 || ~8.5.0",
-    "laminas/laminas-http": "^2.21.0"
+    "laminas/laminas-http": "^2.21.0",
+    "laminas/laminas-servicemanager": "^3.23.0"
   },
   "require-dev": {
     "ext-ctype": "*",
@@ -28,7 +29,6 @@
     "ext-xmlwriter": "*",
     "infection/infection": "^0.29.11",
     "laminas/laminas-modulemanager": "^2.17.0",
-    "laminas/laminas-servicemanager": "^3.22.1",
     "mimmi20/coding-standard": "^6.0.10",
     "nikic/php-parser": "^5.4.0",
     "phpstan/extension-installer": "^1.4.3",
