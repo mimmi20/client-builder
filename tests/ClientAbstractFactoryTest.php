@@ -519,6 +519,8 @@ final class ClientAbstractFactoryTest extends TestCase
 
         $factory = new ClientAbstractFactory();
 
+        self::assertTrue($factory->canCreate($container, $requestedName));
+
         $result = ($factory)($container, $requestedName);
 
         self::assertInstanceOf(HttpClient::class, $result);
