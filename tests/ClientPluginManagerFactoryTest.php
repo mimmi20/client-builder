@@ -13,7 +13,8 @@ declare(strict_types = 1);
 
 namespace Mimmi20\ClientBuilder;
 
-use Override;
+use PHPUnit\Event\NoPreviousThrowableException;
+use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
@@ -21,18 +22,12 @@ use Psr\Container\NotFoundExceptionInterface;
 
 final class ClientPluginManagerFactoryTest extends TestCase
 {
-    private ClientPluginManagerFactory $object;
-
-    /** @throws void */
-    #[Override]
-    protected function setUp(): void
-    {
-        $this->object = new ClientPluginManagerFactory();
-    }
-
     /**
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
+     * @throws NoPreviousThrowableException
+     * @throws Exception
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testInvokeWithServiceListener(): void
     {
@@ -42,7 +37,7 @@ final class ClientPluginManagerFactoryTest extends TestCase
         $container->expects(self::never())
             ->method('has');
 
-        $result = ($this->object)($container, '');
+        $result = (new ClientPluginManagerFactory())($container, '');
 
         self::assertInstanceOf(ClientPluginManager::class, $result);
     }
