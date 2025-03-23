@@ -15,52 +15,60 @@ namespace Mimmi20\ClientBuilder\Exception;
 
 use Laminas\Http\Client as HttpClient;
 use Laminas\Http\Response;
-use Override;
+use PHPUnit\Event\NoPreviousThrowableException;
+use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 
 final class RequestFailedExceptionTest extends TestCase
 {
-    private RequestFailedException $object;
-
-    /** @throws void */
-    #[Override]
-    protected function setUp(): void
-    {
-        $this->object = new RequestFailedException();
-    }
-
     /** @throws ExpectationFailedException */
     public function testGetStatusCode(): void
     {
-        self::assertSame(500, $this->object->getStatusCode());
+        $object = new RequestFailedException();
 
-        $this->object->setStatusCode(404);
+        self::assertSame(500, $object->getStatusCode());
 
-        self::assertSame(404, $this->object->getStatusCode());
+        $object->setStatusCode(404);
+
+        self::assertSame(404, $object->getStatusCode());
     }
 
-    /** @throws ExpectationFailedException */
+    /**
+     * @throws ExpectationFailedException
+     * @throws NoPreviousThrowableException
+     * @throws Exception
+     * @throws \PHPUnit\Framework\MockObject\Exception
+     */
     public function testGetResponse(): void
     {
-        self::assertNull($this->object->getResponse());
+        $object = new RequestFailedException();
+
+        self::assertNull($object->getResponse());
 
         $response = $this->createMock(Response::class);
 
-        $this->object->setResponse($response);
+        $object->setResponse($response);
 
-        self::assertSame($response, $this->object->getResponse());
+        self::assertSame($response, $object->getResponse());
     }
 
-    /** @throws ExpectationFailedException */
+    /**
+     * @throws ExpectationFailedException
+     * @throws NoPreviousThrowableException
+     * @throws Exception
+     * @throws \PHPUnit\Framework\MockObject\Exception
+     */
     public function testGetClient(): void
     {
-        self::assertNull($this->object->getClient());
+        $object = new RequestFailedException();
+
+        self::assertNull($object->getClient());
 
         $client = $this->createMock(HttpClient::class);
 
-        $this->object->setClient($client);
+        $object->setClient($client);
 
-        self::assertSame($client, $this->object->getClient());
+        self::assertSame($client, $object->getClient());
     }
 }
