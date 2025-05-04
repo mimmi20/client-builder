@@ -109,7 +109,7 @@ parameters:
 
   ignoreErrors:
     - '~will always evaluate to true~'
-    - '~but returns array\.~'
+    - '~but returns array<mixed, mixed>\.~'
     - '~does not accept array<mixed, mixed>\.~'
     - '~, array given\.~'
 
