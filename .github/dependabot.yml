@@ -17,9 +17,6 @@ updates:
 
     open-pull-requests-limit: 10
 
-    reviewers:
-      - "mimmi20"
-
     assignees:
       - "mimmi20"
 
@@ -53,9 +50,6 @@ updates:
 
     open-pull-requests-limit: 10
 
-    reviewers:
-      - "mimmi20"
-
     assignees:
       - "mimmi20"
 
@@ -85,9 +79,6 @@ updates:
       timezone: "Europe/Berlin"
 
     open-pull-requests-limit: 10
-
-    reviewers:
-      - "mimmi20"
 
     assignees:
       - "mimmi20"
@@ -120,9 +111,6 @@ updates:
       timezone: "Europe/Berlin"
 
     open-pull-requests-limit: 10
-
-    reviewers:
-      - "mimmi20"
 
     assignees:
       - "mimmi20"
