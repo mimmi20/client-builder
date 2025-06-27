@@ -18,7 +18,7 @@
   "require": {
     "php": "~8.3.0 || ~8.4.0 || ~8.5.0",
     "laminas/laminas-http": "^2.22.0",
-    "laminas/laminas-servicemanager": "^3.23.0"
+    "laminas/laminas-servicemanager": "^4.4.0"
   },
   "require-dev": {
     "ext-ctype": "*",
