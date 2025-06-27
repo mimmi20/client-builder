@@ -115,6 +115,7 @@ updates:
     ignore:
       - dependency-name: "laminas/laminas-servicemanager"
       - dependency-name: "psr/container"
+      - dependency-name: "laminas/laminas-servicemanager"
 
     # Disable rebasing for all pull requests
     rebase-strategy: "disabled"
