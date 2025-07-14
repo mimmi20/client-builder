@@ -13,6 +13,7 @@ declare(strict_types = 1);
 
 namespace Mimmi20\ClientBuilder;
 
+use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use PHPUnit\Event\NoPreviousThrowableException;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
@@ -34,11 +35,21 @@ final class ClientPluginManagerFactoryTest extends TestCase
         $container = $this->createMock(ContainerInterface::class);
         $container->expects(self::never())
             ->method('get');
-        $container->expects(self::never())
-            ->method('has');
+        $container->expects(self::once())
+            ->method('has')
+            ->with('config')
+            ->willReturn(false);
 
         $result = (new ClientPluginManagerFactory())($container, '');
 
         self::assertInstanceOf(ClientPluginManager::class, $result);
+
+        $this->expectException(ServiceNotFoundException::class);
+        $this->expectExceptionCode(0);
+        $this->expectExceptionMessage(
+            'A plugin by the name "test" was not found in the plugin manager Mimmi20\ClientBuilder\ClientPluginManager',
+        );
+
+        $result->get('test');
     }
 }
