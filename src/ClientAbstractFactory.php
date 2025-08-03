@@ -109,11 +109,7 @@ final class ClientAbstractFactory implements AbstractFactoryInterface
 
         $config = $this->getConfig($container);
 
-        if ($config === []) {
-            return false;
-        }
-
-        return isset($config[$requestedName])
+        return array_key_exists($requestedName, $config)
             && is_array($config[$requestedName]);
     }
 
