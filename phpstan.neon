@@ -112,6 +112,7 @@ parameters:
     - '~but returns array<mixed, mixed>\.~'
     - '~does not accept array<mixed, mixed>\.~'
     - '~, array given\.~'
+    - '~will always evaluate to false~'
 
 rules:
   # code complexity
