@@ -14,6 +14,7 @@ declare(strict_types = 1);
 namespace Mimmi20\ClientBuilder;
 
 use Laminas\Http\Client as HttpClient;
+use Laminas\ServiceManager\AbstractPluginManager;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use PHPUnit\Event\NoPreviousThrowableException;
@@ -80,8 +81,8 @@ final class ClientPluginManagerFactoryTest extends TestCase
         $this->expectExceptionCode(0);
         $this->expectExceptionMessage(
             sprintf(
-                '%s can only create instances of %s; %s is invalid',
-                ClientPluginManager::class,
+                'Plugin manager "%s" expected an instance of type "%s", but "%s" was received',
+                AbstractPluginManager::class,
                 HttpClient::class,
                 'string',
             ),
