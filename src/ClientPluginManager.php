@@ -29,6 +29,15 @@ use function array_merge_recursive;
 final class ClientPluginManager extends AbstractPluginManager
 {
     /**
+     * An object type that the created instance must be instanced of
+     *
+     * @var string|null
+     * @phpstan-var class-string<HttpClient>|null
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     */
+    protected $instanceOf = HttpClient::class;
+
+    /**
      * @param array<mixed> $config
      * @phpstan-param ServiceManagerConfiguration $config
      *

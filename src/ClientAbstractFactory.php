@@ -46,7 +46,6 @@ final class ClientAbstractFactory implements AbstractFactoryInterface
      * @throws InvalidArgumentException
      *
      * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
     #[Override]
     public function __invoke(ContainerInterface $container, $requestedName, array | null $options = null): HttpClient
@@ -96,8 +95,6 @@ final class ClientAbstractFactory implements AbstractFactoryInterface
      * @param string $requestedName
      *
      * @throws ContainerExceptionInterface
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
     #[Override]
     public function canCreate(ContainerInterface $container, $requestedName): bool
@@ -109,11 +106,7 @@ final class ClientAbstractFactory implements AbstractFactoryInterface
 
         $config = $this->getConfig($container);
 
-        if ($config === []) {
-            return false;
-        }
-
-        return isset($config[$requestedName])
+        return array_key_exists($requestedName, $config)
             && is_array($config[$requestedName]);
     }
 

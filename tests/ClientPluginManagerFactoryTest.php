@@ -13,6 +13,9 @@ declare(strict_types = 1);
 
 namespace Mimmi20\ClientBuilder;
 
+use Laminas\Http\Client as HttpClient;
+use Laminas\ServiceManager\AbstractPluginManager;
+use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use PHPUnit\Event\NoPreviousThrowableException;
 use PHPUnit\Framework\Exception;
@@ -20,6 +23,8 @@ use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
+
+use function sprintf;
 
 final class ClientPluginManagerFactoryTest extends TestCase
 {
@@ -51,5 +56,60 @@ final class ClientPluginManagerFactoryTest extends TestCase
         );
 
         $result->get('test');
+    }
+
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     * @throws NoPreviousThrowableException
+     * @throws Exception
+     * @throws \PHPUnit\Framework\MockObject\Exception
+     */
+    public function testInvokeWithServiceListener2(): void
+    {
+        $container = $this->createMock(ContainerInterface::class);
+        $container->expects(self::never())
+            ->method('get');
+        $container->expects(self::never())
+            ->method('has');
+
+        $result = (new ClientPluginManagerFactory())($container, '');
+
+        self::assertInstanceOf(ClientPluginManager::class, $result);
+
+        $this->expectException(InvalidServiceException::class);
+        $this->expectExceptionCode(0);
+        $this->expectExceptionMessage(
+            sprintf(
+                'Plugin manager "%s" expected an instance of type "%s", but "%s" was received',
+                AbstractPluginManager::class,
+                HttpClient::class,
+                'string',
+            ),
+        );
+
+        $result->validate('test');
+    }
+
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     * @throws NoPreviousThrowableException
+     * @throws Exception
+     * @throws \PHPUnit\Framework\MockObject\Exception
+     */
+    public function testInvokeWithServiceListener3(): void
+    {
+        $container = $this->createMock(ContainerInterface::class);
+        $container->expects(self::never())
+            ->method('get');
+        $container->expects(self::never())
+            ->method('has');
+
+        $result = (new ClientPluginManagerFactory())($container, '');
+
+        self::assertInstanceOf(ClientPluginManager::class, $result);
+
+        $result->validate(new HttpClient());
     }
 }
